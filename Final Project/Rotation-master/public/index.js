@@ -2,6 +2,7 @@ import * as THREE from "/node_modules/three/build/three.module.js";
 import { EffectComposer } from "/node_modules/three/examples/jsm/postprocessing/EffectComposer.js";
 import { RenderPass } from "/node_modules/three/examples/jsm/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "/node_modules/three/examples/jsm/postprocessing/UnrealBloomPass.js";
+import { OrbitControls } from "/node_modules/three/examples/jsm/controls/OrbitControls.js";
 
 //global declaration
 let scene;
@@ -171,10 +172,18 @@ function playBackgroundMusic() {
   audio.play();
 }
 
+// Initialize OrbitControls
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true; // Add damping for smooth movement
+controls.dampingFactor = 0.05; // Adjust the damping factor to control the damping effect
+controls.rotateSpeed = 0.5; // Adjust the rotation speed
+
 //animation loop
 const animate = () => {
   playBackgroundMusic();
   requestAnimationFrame(animate);
+  controls.update(); // Update the controls in the animation loop
+  
   cloud.rotation.y-=0.0002;
   moonPivot.rotation.y -= 0.005;
   moonPivot.rotation.x = 0.5;
