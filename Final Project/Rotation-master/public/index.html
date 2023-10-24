@@ -13,6 +13,62 @@
     <div>
         <canvas class="webgl"></canvas>
     </div>
+    <div class="slider-container">
+        <label for="ambient-light-slider">Ambient Light Intensity:</label>
+        <input
+          type="range"
+          id="ambient-light-slider"
+          min="0"
+          max="1"
+          step="0.01"
+          value="0.2"
+        />
+        <span id="ambient-light-value">0.2</span>
+    </div>
+    <div class="slider-container-point-light">
+        <label for="point-light-slider">Point Light Intensity:</label>
+        <input
+          type="range"
+          id="point-light-slider"
+          min="0"
+          max="2"
+          step="0.01"
+          value="1"
+        />
+        <span id="point-light-value">1.00</span>
+    </div>
+    <div class="slider-container-zoom-earth">
+        <label for="zoom-slider">Zoom Earth:</label>
+        <input
+          type="range"
+          id="zoom-slider"
+          min="1"
+          max="10"
+          step="0.1"
+          value="4"
+        />
+        <span id="zoom-value">4</span>
+    </div>      
+    <div id="earth-info-box" class="earth-info-box">
+        <p>This is the Earth.</p>
+        <p>Orbital period: <span id="orbital-period">365.256363004 days</span></p>
+        <p>Orbital speed: <span id="orbital-speed">29.7827 km/s</span></p>
+        <p>Satellites: <span id="satellites">1, the Moon</span></p>
+        <p>Radius: <span id="radius">6371.0 km</span></p>
+        <p>Surface area: <span id="surface-area">510072000 km2</span></p>
+        <p>Volume: <span id="volume">1.08321×10^12 km3</span></p>
+        <p>Mass: <span id="mass">5.972168×10^24 kg</span></p>
+    </div>
+    <div id="moon-info-box" class="moon-info-box">
+        <p>This is the Moon.</p>
+        <p>Orbital period: <span id="orbital-period">27.321661 days</span></p>
+        <p>Orbital speed: <span id="orbital-speed">1.022 km/s</span></p>
+        <p>Satellite of: <span id="satellite-of">Earth</span></p>
+        <p>Radius: <span id="radius">1737.4 km</span></p>
+        <p>Surface area: <span id="surface-area">3.793×10^7 km2</span></p>
+        <p>Volume: <span id="volume">2.1958×10^10 km3</span></p>
+        <p>Mass: <span id="mass">7.342×10^22 kg</span></p>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script type="module" src="./index.js"></script>
     <script src="TrackballControls.js"></script>	
