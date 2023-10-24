@@ -178,12 +178,63 @@ controls.enableDamping = true; // Add damping for smooth movement
 controls.dampingFactor = 0.05; // Adjust the damping factor to control the damping effect
 controls.rotateSpeed = 0.5; // Adjust the rotation speed
 
+// Get the slider element and the text element displaying the value
+const ambientLightSlider = document.getElementById("ambient-light-slider");
+const ambientLightValue = document.getElementById("ambient-light-value");
+
+// Function to update the ambient light intensity
+function updateAmbientLightIntensity() {
+  const intensity = parseFloat(ambientLightSlider.value);
+  ambientlight.intensity = intensity;
+  ambientLightValue.textContent = intensity.toFixed(2);
+}
+
+// Add an event listener to the slider to update the ambient light
+ambientLightSlider.addEventListener("input", updateAmbientLightIntensity);
+
+// Initialize the ambient light intensity
+updateAmbientLightIntensity();
+
+// Get the point light slider element and the text element displaying the value
+const pointLightSlider = document.getElementById("point-light-slider");
+const pointLightValue = document.getElementById("point-light-value");
+
+// Function to update the point light intensity
+function updatePointLightIntensity() {
+  const intensity = parseFloat(pointLightSlider.value);
+  pointLight.intensity = intensity;
+  pointLightValue.textContent = intensity.toFixed(2);
+}
+
+// Add an event listener to the point light slider to update the point light
+pointLightSlider.addEventListener("input", updatePointLightIntensity);
+
+// Initialize the point light intensity
+updatePointLightIntensity();
+
+// Get the zoom slider element and the text element displaying the value
+const zoomSlider = document.getElementById("zoom-slider");
+const zoomValue = document.getElementById("zoom-value");
+
+// Function to update the camera's position (zoom)
+function updateCameraZoom() {
+  const zoom = parseFloat(zoomSlider.value);
+  camera.position.z = zoom;
+  zoomValue.textContent = zoom.toFixed(1);
+}
+
+// Add an event listener to the zoom slider to update the camera's position
+zoomSlider.addEventListener("input", updateCameraZoom);
+
+// Initialize the camera's position (zoom)
+updateCameraZoom();
+
 //animation loop
 const animate = () => {
   playBackgroundMusic();
   requestAnimationFrame(animate);
   controls.update(); // Update the controls in the animation loop
-  
+
   cloud.rotation.y-=0.0002;
   moonPivot.rotation.y -= 0.005;
   moonPivot.rotation.x = 0.5;
@@ -265,6 +316,77 @@ document.addEventListener("keydown", (event) => {
       cameraPivot.position.y += 0.1;
       break;
     // Tambahkan kontrol keyboard lainnya sesuai kebutuhan
+  }
+});
+
+// Event listener for mouse clicks
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+document.addEventListener("click", (event) => {
+  // Calculate the mouse coordinates based on the click event
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+  // Update the picking ray with the camera and mouse position
+  raycaster.setFromCamera(mouse, camera);
+
+  // Find intersected objects
+  const intersects = raycaster.intersectObjects([moonMesh, earthMesh], true);
+
+  const moonInfoBox = document.getElementById("moon-info-box");
+  const earthInfoBox = document.getElementById("earth-info-box");
+
+  // Hide both info boxes initially
+  moonInfoBox.style.display = "none";
+  earthInfoBox.style.display = "none";
+
+  if (intersects.length > 0) {
+    const clickedObject = intersects[0].object;
+
+    if (clickedObject === moonMesh) {
+      // The Moon was clicked
+      // Set the text to display
+      const orbitalPeriodElement = document.getElementById("orbital-period");
+      const orbitalSpeedElement = document.getElementById("orbital-speed");
+      const orbitalSatelliteOf = document.getElementById("satellite-of");
+      const Radius = document.getElementById("radius");
+      const SurfaceArea = document.getElementById("surface-area");
+      const Volume = document.getElementById("volume");
+      const Mass = document.getElementById("mass");
+
+      orbitalPeriodElement.textContent = "27.321661 days";
+      orbitalSpeedElement.textContent = "1.022 km/s";
+      orbitalSatelliteOf.textContent = "Earth";
+      Radius.textContent = "1737.4 km";
+      SurfaceArea.textContent = "3.793×10^7 km2";
+      Volume.textContent = "2.1958×10^10 km3";
+      Mass.textContent = "7.342×10^22 kg";
+
+      const moonInfoText = document.getElementById("moon-info-text");
+      moonInfoBox.style.display = "block";
+    } else if (clickedObject === earthMesh) {
+      // The Earth was clicked
+      // Set the text to display
+      const orbitalPeriodElement = document.getElementById("orbital-period");
+      const orbitalSpeedElement = document.getElementById("orbital-speed");
+      const orbitalSatellites = document.getElementById("satellites");
+      const Radius = document.getElementById("radius");
+      const SurfaceArea = document.getElementById("surface-area");
+      const Volume = document.getElementById("volume");
+      const Mass = document.getElementById("mass");
+
+      orbitalPeriodElement.textContent = "365.256363004 days";
+      orbitalSpeedElement.textContent = "29.7827 km/s";
+      orbitalSatellites.textContent = "1, the Moon";
+      Radius.textContent = "6371.0 km";
+      SurfaceArea.textContent = "510072000 km2";
+      Volume.textContent = "1.08321×10^12 km3";
+      Mass.textContent = "5.972168×10^24 kg";
+
+      const earthInfoText = document.getElementById("earth-info-text");
+      earthInfoBox.style.display = "block";
+    }
   }
 });
 
