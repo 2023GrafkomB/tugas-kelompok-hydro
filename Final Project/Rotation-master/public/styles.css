@@ -7,3 +7,77 @@
 body {
   overflow: hidden;
 }
+
+.earth-info-box {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  display: none;
+}
+
+.earth-info-box p {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.moon-info-box {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  display: none;
+}
+
+.moon-info-box p {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+/* CSS for the slider container */
+.slider-container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1; /* z-index is greater than the canvas */
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+}
+
+/* CSS for the point light slider container */
+.slider-container-point-light {
+  position: absolute;
+  top: 50px; /* Adjust the top position to separate it from the ambient light container */
+  left: 10px;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+}
+
+/* CSS for the zoom earth slider container */
+.slider-container-zoom-earth {
+  position: absolute;
+  top: 90px; /* Adjust the top position to separate it from the ambient light container */
+  left: 10px;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+}
+
+/* CSS for the canvas */
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0; /* Lower z-index for the canvas */
+}
